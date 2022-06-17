@@ -4,6 +4,7 @@
 class myApp : public wxApp
 {
 public:
+    Calculator* frame;
     virtual bool OnInit();
 };
 

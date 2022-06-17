@@ -7,7 +7,7 @@ wxIMPLEMENT_APP(myApp);
 
 bool myApp::OnInit()
 {
-    Calculator* frame = new Calculator("Calculator", wxPoint(50, 50), wxSize(265, 340));
+    frame = new Calculator("Calculator", wxPoint(50, 50), wxSize(265, 340));
     frame->Show(true);
     return true;
 }
