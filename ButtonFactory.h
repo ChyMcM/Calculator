@@ -3,6 +3,5 @@
 class ButtonFactory
 {
 public:
-	static void createButton(wxWindow* o, wxButton* d, int p, wxString v, wxPoint z, wxSize b);
+	static wxButton* createButton(wxWindow* o, wxButton* d, int p, wxString v, wxPoint z, wxSize b);
 };
-
