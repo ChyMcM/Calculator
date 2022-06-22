@@ -7,4 +7,3 @@ public:
     Calculator* frame;
     virtual bool OnInit();
 };
-
