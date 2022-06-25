@@ -6,6 +6,7 @@
 class Calculator : public wxFrame
 {
 public:
+    Calculator(){}
     Calculator(const wxString& title, const wxPoint& pos, const wxSize& size);
     wxTextCtrl* display;
     wxButton* but0;
@@ -33,7 +34,6 @@ public:
     std::string displayfeed;
     std::vector<float> nums;
     std::vector<char> operas;
-    int cur;
     int sum;
     int num1;
     bool add = false;
@@ -55,6 +55,8 @@ public:
     float decita = 1;
     std::string binnum;
     std::string hexnum;
+    std::string numo1;
+    std::string numo2;
     void OnButtonClick(wxCommandEvent& evt);
 private:
     void OnExit(wxCommandEvent& event);

@@ -2,6 +2,7 @@
 #include "ButtonFactory.h"
 #include <sstream>
 #include <iomanip>
+#include "CalculatorProcessor.h"
 Calculator::Calculator(const wxString& title, const wxPoint& pos, const wxSize& size) : wxFrame(NULL, 12345, title, pos, size)
 {
     Center();
@@ -694,101 +695,26 @@ void Calculator::OnButtonClick(wxCommandEvent& evt)
     {
     if (binn == true || hexa == true)
     {
-        displayfeed == "Error";
+        displayfeed = "Error";
     }
 domath:
-        if (add == true)
+    if (deci == true)
+    {
+        if (modu == true)
         {
-            if (deci == true)
-            {
-                decsum = dec1 + dec2;
-                displayfeed = std::to_string(decsum);
-                dec1 = decsum;
-
-            }
-            else
-            {
-                sum = numo + num2;
-                numstor = sum;
-                displayfeed = std::to_string(sum);
-                numo = sum;
-            }
-            sum = 0;
-            add = false;
+            displayfeed = "Error";
         }
-    else if (sub == true)
-    {
-            if (deci == true)
-            {
-                decsum = dec1 - dec2;
-                displayfeed = std::to_string(decsum);
-                dec1 = decsum;
-
-            }
-            else
-            {
-                sum = numo - num2;
-                numstor = sum;
-                displayfeed = std::to_string(sum);
-                numo = sum;
-            }
-            sum = 0;
-            sub = false;
+        CalculatorProcessor::cal->getproc(std::to_string(dec1), std::to_string(dec2));
+        dec2 = 0;
+        dec1 = std::stof(CalculatorProcessor::cal->data);
+        displayfeed = CalculatorProcessor::cal->data;
     }
-    else if (diva == true)
+    else
     {
-            if (deci == true)
-            {
-                decsum = dec1 / dec2;
-                displayfeed = std::to_string(decsum);
-                dec1 = decsum;
-
-            }
-            else
-            {
-                sum = numo / num2;
-                numstor = sum;
-                displayfeed = std::to_string(sum);
-                numo = sum;
-            }
-            sum = 0;
-            diva = false;
-    }
-    else if (mult == true)
-    {
-            if (deci == true)
-            {
-                decsum = dec1 * dec2;
-                displayfeed = std::to_string(decsum);
-                dec1 = decsum;
-
-            }
-            else
-            {
-                sum = numo * num2;
-                numstor = sum;
-                displayfeed = std::to_string(sum);
-                numo = sum;
-            }
-            sum = 0;
-            mult = false;
-    }
-    else if (modu == true)
-    {
-            if (deci == true)
-            {
-                displayfeed = "Error";
-                dec1 = 0;
-            }
-            else
-            {
-                sum = numo % num2;
-                numstor = sum;
-                displayfeed = std::to_string(sum);
-                numo = sum;
-            }
-            sum = 0;
-            modu = false;
+        CalculatorProcessor::cal->getproc(std::to_string(numo), std::to_string(num2));
+        num2 = 0;
+        numo = std::stoi(CalculatorProcessor::cal->data);
+        displayfeed = CalculatorProcessor::cal->data;
     }
         if (binn == true)
         {
@@ -811,6 +737,7 @@ domath:
             displayfeed += "+";
             add = true;
             op1on = true;
+            CalculatorProcessor::cal->add = true;
             firstClick = true;
         }
         display->SetLabel(displayfeed);
@@ -826,6 +753,7 @@ domath:
         displayfeed += "-";
         sub = true;
         op1on = true;
+        CalculatorProcessor::cal->sub = true;
         firstClick = true;
     }
     display->SetLabel(displayfeed);
@@ -841,6 +769,7 @@ domath:
         displayfeed += "/";
         diva = true;
         op1on = true;
+        CalculatorProcessor::cal->diva = true;
         firstClick = true;
     }
     display->SetLabel(displayfeed);
@@ -856,6 +785,7 @@ domath:
         displayfeed += "*";
         mult = true;
         op1on = true;
+        CalculatorProcessor::cal->mult = true;
         firstClick = true;
     }
     display->SetLabel(displayfeed);
@@ -871,6 +801,7 @@ domath:
         displayfeed += "%";
         modu = true;
         op1on = true;
+        CalculatorProcessor::cal->modu = true;
         firstClick = true;
     }
     display->SetLabel(displayfeed);
@@ -890,6 +821,7 @@ domath:
             numo = dec1;
         }
         deci = false;
+        CalculatorProcessor::cal->deci = false;
        }
     else
     {
@@ -903,6 +835,7 @@ domath:
             dec1 = numo;
         }
         deci = true;
+        CalculatorProcessor::cal->deci = true;
     }
     }
     else if (x == 18)
@@ -913,7 +846,7 @@ domath:
        }
     if (op1on == true)
     {
-        hexa == true;
+        hexa = true;
         goto domath;
     }
     if (hexa == false)
